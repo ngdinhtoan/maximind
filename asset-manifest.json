@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/maximind/static/js/main.b8545e23.chunk.js",
-    "main.js.map": "/maximind/static/js/main.b8545e23.chunk.js.map",
+    "main.js": "/maximind/static/js/main.ae3b1bf2.chunk.js",
+    "main.js.map": "/maximind/static/js/main.ae3b1bf2.chunk.js.map",
     "runtime~main.js": "/maximind/static/js/runtime~main.a841f76a.js",
     "runtime~main.js.map": "/maximind/static/js/runtime~main.a841f76a.js.map",
     "static/js/2.f15e07d5.chunk.js": "/maximind/static/js/2.f15e07d5.chunk.js",
     "static/js/2.f15e07d5.chunk.js.map": "/maximind/static/js/2.f15e07d5.chunk.js.map",
     "index.html": "/maximind/index.html",
-    "precache-manifest.3aa2cca6ef2a3b706183f8f8d8a9d079.js": "/maximind/precache-manifest.3aa2cca6ef2a3b706183f8f8d8a9d079.js",
+    "precache-manifest.46f69410da470ed019da628ab3a77067.js": "/maximind/precache-manifest.46f69410da470ed019da628ab3a77067.js",
     "service-worker.js": "/maximind/service-worker.js"
   }
 }
