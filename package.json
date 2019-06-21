@@ -10,12 +10,16 @@
     "react-scripts": "^3.0.1",
     "@material-ui/styles": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -27,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/ngdinhtoan/maximind/issues"
   },
-  "homepage": "https://github.com/ngdinhtoan/maximind#readme",
+  "homepage": "https://ngdinhtoan.github.io/maximind/",
   "browserslist": {
     "production": [
       ">0.2%",
