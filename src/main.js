@@ -78,9 +78,7 @@ let SettingsStorage = {
             this.readAll();
         }
         this.all[key] = value;
-        var s = key + '=' + value + '; expires=Thu, 18 Dec 2100 12:00:00 UTC';
-        console.log(s);
-        document.cookie = s;
+        document.cookie = key + '=' + value + '; expires=Thu, 18 Dec 2100 12:00:00 UTC';;
     }
 };
 
@@ -92,7 +90,7 @@ let GameController = {
     game: null,
     lastVal: 0,
     newGame: function () {
-        this.game = new Game();
+        this.game = new Game(this.board);
 
         //reset
         while (this.board.firstChild) {
@@ -100,25 +98,18 @@ let GameController = {
         }
 
         // calculate game grid
-        if (this.game.direction === GameDirection.VERTICAL) {
-            this.cellWidth = Math.floor((this.board.clientHeight - 56) / this.game.rows);
-            this.cellHeight = Math.floor(this.board.clientWidth / this.game.cols);
-        } else {
-            this.cellWidth = Math.floor(this.board.clientWidth / this.game.cols);
-            this.cellHeight = Math.floor((this.board.clientHeight - 56) / this.game.rows);
-        }
+        this.cellWidth = Math.floor(this.board.clientWidth / this.game.cols);
+        this.cellHeight = Math.floor((this.board.clientHeight - 56) / this.game.rows);
 
         //initialize game board
         this.lastVal = 0;
         this.createGameBoard();
 
-        setTimeout(function () {
-            GameController.startGame();
-        }, 500);
+        setTimeout(function () { GameController.startGame(); }, 10);
     },
 
     startGame: function () {
-        for (var i = 0; i < this.listCells.length; i++) {
+        for (let i = 0; i < this.listCells.length; i++) {
             this.listCells[i].innerText = this.listCells[i].getAttribute('val');
         }
         this.game.status = GameStatus.INIT;
@@ -126,9 +117,7 @@ let GameController = {
     },
 
     startPlay: function () {
-        //hide cell value
-        console.log(this.listCells.length);
-        for (var i = 0; i < this.listCells.length; i++) {
+        for (let i = 0; i < this.listCells.length; i++) {
             this.listCells[i].innerText = '';
         }
 
@@ -145,19 +134,26 @@ let GameController = {
 
     createGameBoard: function () {
         this.listCells = [];
-        let cells = [];
+        let cells = new Map();
         let col, row;
         for (let i = 0; i < this.game.level; i++) {
             do {
                 col = Math.floor(Math.random() * this.game.cols);
                 row = Math.floor(Math.random() * this.game.rows);
-            } while (cells.indexOf(col + '-' + row) >= 0);
+            } while (cells.has(col + '-' + row));
 
-            cells.push(col + '-' + row);
+            cells.set(col + '-' + row, 1);
             let cell = this.createCell(i + 1, row, col);
 
             this.board.appendChild(cell);
             this.listCells.push(cell);
+
+            cell.addEventListener('click', function (e) {
+                if (GameController.game && GameController.game.status !== GameStatus.END) {
+                    e.stopPropagation();
+                }
+                GameController.onCellClick(e.target);
+            });
         }
     },
 
@@ -174,15 +170,10 @@ let GameController = {
         cell.setAttribute('val', value);
         cell.setAttribute('col', col);
         cell.setAttribute('row', row);
-        cell.addEventListener('click', function (e) {
-            if (GameController.game && GameController.game.status !== GameStatus.END) {
-                e.stopPropagation();
-            }
-            GameController.onCellClick(e.target);
-        });
 
         return cell;
     },
+
     onCellClick: function (cell) {
         if (this.game.status === GameStatus.INIT) {
             this.startPlay();
@@ -214,7 +205,7 @@ let GameController = {
     }
 };
 
-let Game = function () {
+let Game = function (board) {
     this.level = Settings.gameLevel;
     this.status = GameStatus.INIT;
     this.createTime = null;
@@ -223,7 +214,7 @@ let Game = function () {
     this.result = null;
     this.direction = GameDirection.HORIZONTAL;
 
-    if (window.innerWidth > window.innerHeight) {
+    if (board.clientWidth > board.clientHeight) {
         this.cols = Settings.gameSize[0];
         this.rows = Settings.gameSize[1];
         this.direction = GameDirection.VERTICAL;
