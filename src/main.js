@@ -167,15 +167,9 @@ let GameController = {
         cell.style.height = this.cellHeight - 2 + 'px';
         cell.style.lineHeight = this.cellHeight + 'px';
         cell.style.fontSize = this.cellHeight + 'px';
-        if (this.game.direction === GameDirection.VERTICAL) {
-            cell.style.transformOrigin = "0 0";
-            // cell.style.transform = "rotate(90deg)";
-            cell.style.top = row * this.cellWidth + 'px';
-            cell.style.left = this.board.clientWidth - col * this.cellHeight + 'px';
-        } else {
-            cell.style.top = row * this.cellHeight + 'px';
-            cell.style.left = col * this.cellWidth + 'px';
-        }
+        cell.style.top = row * this.cellHeight + 'px';
+        cell.style.left = col * this.cellWidth + 'px';
+
         cell.className = 'game-cell';
         cell.setAttribute('val', value);
         cell.setAttribute('col', col);
@@ -186,6 +180,7 @@ let GameController = {
             }
             GameController.onCellClick(e.target);
         });
+
         return cell;
     },
     onCellClick: function (cell) {
