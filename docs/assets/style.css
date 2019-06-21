@@ -1,9 +1,0 @@
-.game-cell {
-    background-color: #ffffff;
-    text-align: center;
-    position: absolute;
-}
-
-.game-cell.wrong {
-    background-color: #f04040;
-}
