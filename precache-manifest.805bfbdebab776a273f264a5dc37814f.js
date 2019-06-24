@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fec169c473eac4b66390a60c04b74444",
+    "revision": "ef9dfd3e0c7f3a33a30b283f19eafa3e",
     "url": "/maximind/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/maximind/static/js/2.f15e07d5.chunk.js"
   },
   {
-    "revision": "fcc6d6b5b562207cd69e",
-    "url": "/maximind/static/js/main.8e7cd1e3.chunk.js"
+    "revision": "dd8273021408c5772ee5",
+    "url": "/maximind/static/js/main.bcbd9c11.chunk.js"
   },
   {
     "revision": "6fa5354523d41237ce7d",
