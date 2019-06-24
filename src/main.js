@@ -17,12 +17,12 @@ const GameResult = {
 export const GameLevel = {
     EASY: 5,
     NORMAL: 7,
-    HARD: 10,
+    HARD: 9,
     INSANE: 15
 };
 
 const GameSize = {
-    SMALL: [10, 5],
+    SMALL: [9, 5],
     MEDIUM: [15, 7],
     LARGE: [20, 10]
 };
@@ -161,10 +161,10 @@ let GameController = {
         const cell = document.createElement('div');
         cell.style.width = this.cellWidth - 2 + 'px';
         cell.style.height = this.cellHeight - 2 + 'px';
+        cell.style.top = row * this.cellHeight + 1 + 'px';
+        cell.style.left = col * this.cellWidth + 1 + 'px';
         cell.style.lineHeight = this.cellHeight + 'px';
         cell.style.fontSize = this.cellHeight + 'px';
-        cell.style.top = row * this.cellHeight + 'px';
-        cell.style.left = col * this.cellWidth + 'px';
 
         cell.className = 'game-cell';
         cell.setAttribute('val', value);
@@ -178,19 +178,29 @@ let GameController = {
         if (this.game.status === GameStatus.INIT) {
             this.startPlay();
         }
+
         if (this.game.status !== GameStatus.INPROGRESS) {
             return;
         }
-        var val = parseInt(cell.getAttribute('val'));
-        var ok = this.checkResult(val);
+
+        let val = parseInt(cell.getAttribute('val'));
+        const ok = this.checkResult(val);
         if (!ok) {
-            //highlight wrong cell
+            // highlight wrong cell
             cell.innerText = val;
             cell.className = 'game-cell wrong';
+
+            // display
+            let cells = this.board.getElementsByClassName('game-cell');
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].innerText = parseInt(cells[i].getAttribute('val'));
+            }
+
             // stop game
             this.endGame(false);
             return;
         }
+
         this.lastVal = val;
         this.board.removeChild(cell);
         if (this.isFinish()) {
